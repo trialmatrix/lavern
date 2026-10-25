@@ -1,5 +1,5 @@
 # ── Stage 1: Build frontend ──────────────────────────────────────────────
-FROM node:20-slim AS frontend-build
+FROM node:22-slim AS frontend-build
 
 WORKDIR /app/viz
 COPY viz/package*.json ./
@@ -8,7 +8,7 @@ COPY viz/ ./
 RUN npm run build
 
 # ── Stage 2: Build API ──────────────────────────────────────────────────
-FROM node:20-slim AS api-build
+FROM node:22-slim AS api-build
 
 WORKDIR /app
 COPY package*.json .npmrc ./
@@ -19,7 +19,7 @@ COPY src/ src/
 # RUN npx tsc --noEmit
 
 # ── Stage 3: Runtime ────────────────────────────────────────────────────
-FROM node:20-slim AS runtime
+FROM node:22-slim AS runtime
 
 # Install better-sqlite3 build deps (needed for native module)
 RUN apt-get update && apt-get install -y --no-install-recommends \
